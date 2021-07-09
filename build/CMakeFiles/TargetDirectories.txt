@@ -1,0 +1,3 @@
+/home/islam/Assignments/Graduation Project/Task_5/build/CMakeFiles/rebuild_cache.dir
+/home/islam/Assignments/Graduation Project/Task_5/build/CMakeFiles/edit_cache.dir
+/home/islam/Assignments/Graduation Project/Task_5/build/CMakeFiles/main.dir
