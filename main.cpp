@@ -4,10 +4,18 @@
 #include "Eigen/Dense"
 using namespace std;
 
+CarDetector * cd = NULL;
+void initilize_car_detector()
+{
+    if(cd == NULL)
+    {
+        cd = new CarDetector();
+    }
+}
 
 vector<UKF_results> spin_once(vector<vector<float>> coordinates_lidar)
 {
-    CarDetector cd = CarDetector();
+    initilize_car_detector();
     vector<UKF_results> results;
     
     ///Takes frame data and transforms it to carobjlidar 
