@@ -4,10 +4,10 @@
 #include "Eigen/Dense"
 using namespace std;
 
-CarDetector * cd = NULL;
+CarDetector * cd = nullptr;
 void initilize_car_detector()
 {
-    if(cd == NULL)
+    if(cd == nullptr)
     {
         cd = new CarDetector();
     }
