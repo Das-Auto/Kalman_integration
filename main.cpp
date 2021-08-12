@@ -77,13 +77,8 @@ int main (int argc, char *argv[])
 
     while (!feof(pf))
     {
-        std::cout << "hello2"<< std::endl;
-
         coordinates_lidar = getNextFrame(pf);
-        std::cout << "hello3"<< std::endl;
-
         results = spin_once(coordinates_lidar);
-        std::cout << "hello4"<< std::endl;
 
     }
     return 0;
