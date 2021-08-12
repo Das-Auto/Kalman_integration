@@ -5,6 +5,7 @@
 using namespace std;
 
 CarDetector * cd = nullptr;
+
 void initilize_car_detector()
 {
     if(cd == nullptr)
@@ -27,15 +28,15 @@ vector<UKF_results> spin_once(vector<vector<float>> coordinates_lidar)
         temp.x = coordinates_lidar[i][0];
         temp.y = coordinates_lidar[i][1];
         temp.isNewCar = 1;
-        cd.ldata.push_back(temp);
+        cd->ldata.push_back(temp);
     }
 
-    cd.detectlidar();
+    cd->detectlidar();
 
-    for(int i = 0; i < cd.traffic.size(); i++)
+    for(int i = 0; i < cd->traffic.size(); i++)
     {
-        float x = cd.traffic[i].lmarker.x;
-        float y = cd.traffic[i].lmarker.y;
+        float x = cd->traffic[i].lmarker.x;
+        float y = cd->traffic[i].lmarker.y;
         Eigen::VectorXd v = Eigen::VectorXd(2);
         v << x,
              y;
@@ -43,16 +44,16 @@ vector<UKF_results> spin_once(vector<vector<float>> coordinates_lidar)
         meas_package.sensor_type_ = meas_package.LASER;
         meas_package.raw_measurements_ = v;
         meas_package.timestamp_ = 1;
-        cd.traffic[i].ukf.ProcessMeasurement(meas_package);
+        cd->traffic[i].ukf.ProcessMeasurement(meas_package);
     }
     
-    Eigen::VectorXd x_;
+    Eigen::VectorXd x_; 
     Eigen::MatrixXd P_;
-    for(int i = 0; i < cd.traffic.size(); i++)
+    for(int i = 0; i < cd->traffic.size(); i++)
     {
 
-        x_ = cd.traffic[i].ukf.x_;
-        P_ = cd.traffic[i].ukf.P_;
+        x_ = cd->traffic[i].ukf.x_;
+        P_ = cd->traffic[i].ukf.P_;
 
         UKF_results res; 
 
@@ -69,7 +70,6 @@ vector<UKF_results> spin_once(vector<vector<float>> coordinates_lidar)
 
 int main (int argc, char *argv[])
 {
-   
     FILE * pf = fopen("l.txt", "r");
 
     std::vector<std::vector<float>> coordinates_lidar;
@@ -77,8 +77,14 @@ int main (int argc, char *argv[])
 
     while (!feof(pf))
     {
+        std::cout << "hello2"<< std::endl;
+
         coordinates_lidar = getNextFrame(pf);
+        std::cout << "hello3"<< std::endl;
+
         results = spin_once(coordinates_lidar);
+        std::cout << "hello4"<< std::endl;
+
     }
     return 0;
 }
